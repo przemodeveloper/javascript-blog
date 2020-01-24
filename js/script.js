@@ -184,13 +184,16 @@ function tagClickHandler(event){
 
   const href = clickedElement.getAttribute('href');
 
+
   /* make a new constant "tag" and extract tag from the "href" constant */
 
   const tag = href.replace('#tag-', '');
 
+
   /* find all tag links with class active */
 
   const tagLinks = document.querySelectorAll('a.active[href^="#tag-"]');
+
 
   /* START LOOP: for each active tag link */
 
@@ -200,6 +203,7 @@ function tagClickHandler(event){
 
     tagLink.classList.remove('active');
 
+
   /* END LOOP: for each active tag link */
 
 }
@@ -207,7 +211,7 @@ function tagClickHandler(event){
   /* find all tag links with "href" attribute equal to the "href" constant */
 
   const equalLinks = document.querySelectorAll('a[href="' + href + '"]');
-  console.log(equalLinks);
+
 
   /* START LOOP: for each found tag link */
 
@@ -216,6 +220,7 @@ function tagClickHandler(event){
     /* add class active */
 
     equalLink.classList.add('active');
+    console.log(equalLink);
 
   /* END LOOP: for each found tag link */
 
@@ -307,13 +312,16 @@ function authorClickHandler(event) {
  const href = clickedElement.getAttribute('href');
 
 
+
  /* make a new constant "author" and extract author from the "href" constant */
 
  const author = href.replace('#author-', '');
- console.log(author);
+
+
  /* find all author links with class active */
 
  const authorLinks = document.querySelectorAll('a.active[href^="#author-"]');
+
 
  /* START LOOP: for each active author link */
 
@@ -323,21 +331,23 @@ function authorClickHandler(event) {
 
    activeAuthorLink.classList.remove('active');
 
+
  /* END LOOP: for each active author link */
 
   }
 
  /* find all author links with "href" attribute equal to the "href" constant */
 
- const equalLinks = document.querySelectorAll('a[href="' + href + '"]');
+ const evenLinks = document.querySelectorAll('a[href="' + href + '"]');
+
 
  /* START LOOP: for each found author link */
 
- for (let equalLink of equalLinks) {
+ for (let evenLink of evenLinks) {
 
    /* add class active */
 
-   equalLink.classList.add('active');
+   evenLink.classList.add('active');
 
  /* END LOOP: for each found author link */
 
