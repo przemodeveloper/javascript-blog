@@ -58,7 +58,10 @@ const optArticleSelector = '.post',
   optTitleListSelector = '.titles',
   optArticleTagsSelector = '.post-tags .list',
   optArticleAuthorsSelector = '.post-author',
-  optTagsListSelector = '.tags.list';
+  optTagsListSelector = '.tags.list',
+  optCloudClassCount = 5,
+  optCloudClassPrefix = 'tag-size-',
+  optAuthorsListSelector = '.authors.list';
 
 function generateTitleLinks(customSelector = '') {
 
@@ -117,7 +120,35 @@ function generateTitleLinks(customSelector = '') {
 
 generateTitleLinks();
 
+function calculateTagsParams(tags) {
+
+  const params = {min: 999999, max: 0};
+  for (let tag in tags) {
+
+    params.max = Math.max(tags[tag], params.max);
+    params.min = Math.min(tags[tag], params.min);
+
+  }
+
+  return params;
+
+}
+
+function calculateTagClass(count, params) {
+  const normalizedCount = count - params.min;
+  const normalizedMax = params.max - params.min;
+  const percentage = normalizedCount / normalizedMax;
+  const classNumber = Math.floor(percentage * (optCloudClassCount - 1) + 1);
+
+  return optCloudClassPrefix + classNumber;
+}
+
+
 function generateTags() {
+
+   /* [NEW] create a new variable allTags with an empty array */
+
+   let allTags = {};
 
   /* find all articles */
 
@@ -152,6 +183,7 @@ function generateTags() {
 
     for (let tag of articleTagsArray) {
 
+
       /* generate HTML of the link */;
 
       const linkHTML = '<li><a href="#tag-' + tag + '"><span>' + tag + '</span></a></li> ';
@@ -160,6 +192,19 @@ function generateTags() {
 
       html = html + linkHTML;
 
+       /* [NEW] check if this link is NOT already in allTags */
+
+       if (!allTags[tag]) {
+
+           /* [NEW] add tag to allTags object */
+
+           allTags[tag] = 1;
+
+       } else {
+
+         allTags[tag]++;
+
+       }
 
 
     /* END LOOP: for each tag */
@@ -170,13 +215,50 @@ function generateTags() {
 
     for (let wrapper of tagWrapper) {
       wrapper.innerHTML = html;
-    }
+      }
 
   /* END LOOP: for every article: */
 
+    }
+
+  /* [NEW] find list of tags in right column */
+
+  const tagList = document.querySelectorAll('.tags');
+
+  /* [NEW] create variable for all links HTML code */
+
+  const tagsParams = calculateTagsParams(allTags);
+
+
+   let allTagsHTML = '';
+
+   /* [NEW] START LOOP: for each tag in allTags: */
+
+   for (let tag in allTags) {
+
+      /* [NEW] generate code of a link and add it to allTagsHTML */
+
+      allTagsHTML += '<li><a href="#tag-' + tag + '" class="' + calculateTagClass(allTags[tag], tagsParams) + '"><span>' + tag + '</span></a></li>';
+
+
+  /* [NEW] END LOOP: for each tag in allTags: */
+
+
+ }
+
+  /*[NEW] add HTML from allTagsHTML to tagList */
+
+  for (let tag of tagList) {
+
+    tag.innerHTML = allTagsHTML;
+
   }
 
+
 }
+
+
+
 
 generateTags();
 
@@ -225,7 +307,7 @@ function tagClickHandler(event){
     /* add class active */
 
     equalLink.classList.add('active');
-    console.log(equalLink);
+
 
   /* END LOOP: for each found tag link */
 
@@ -255,6 +337,8 @@ function addClickListenersToTags(){
 addClickListenersToTags();
 
 function generateAuthors() {
+
+  let allAuthors = {};
 
   /* find all articles */
 
@@ -288,6 +372,16 @@ function generateAuthors() {
 
       html = html + linkHTML;
 
+      if (!allAuthors[author]) {
+
+        allAuthors[author] = 1;
+
+      } else {
+
+        allAuthors[author]++;
+
+      }
+
     /* insert HTML of all the links into the author wrapper */
 
     for (let wrapper of authorWrapper) {
@@ -296,6 +390,20 @@ function generateAuthors() {
 
   /* END LOOP: for every article: */
 
+  }
+
+  const authorList = document.querySelectorAll('.authors');
+
+  let allAuthorsHTML = '';
+
+  for (let author in allAuthors) {
+
+    allAuthorsHTML += '<li><a href="#author-' + author + '"><span>' + author + '</span>' + ' (' + allAuthors[author] + ')' +'</a></li>';
+
+  }
+
+  for (let author of authorList) {
+    author.innerHTML = allAuthorsHTML;
   }
 
 }
@@ -347,7 +455,7 @@ function authorClickHandler(event) {
    /* add class active */
 
    evenLink.classList.add('active');
-   console.log(evenLink);
+
  /* END LOOP: for each found author link */
 
   }

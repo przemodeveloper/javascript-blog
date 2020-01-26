@@ -80,8 +80,6 @@ body {
   padding: 0;
   .active {
     font-weight: bold;
-    transition: all 1s;
-    font-size: 20px;
   }
 }
 
@@ -112,8 +110,6 @@ body {
   font-style: italic;
   .active {
     font-weight: bold;
-    transition: all 1s;
-    font-size: 20px;
   }
 }
 
@@ -122,4 +118,37 @@ body {
   p {
     margin: 0 10px 0 0;
   }
+}
+
+.tag-size-1 {
+  font-size: 10px;
+  color: green;
+
+}
+
+.tag-size-2 {
+  font-size: 20px;
+  color: red;
+
+}
+
+
+.tag-size-3 {
+  font-size: 30px;
+  color: orange;
+
+}
+
+
+.tag-size-4 {
+  font-size: 40px;
+  color: blue;
+
+}
+
+
+.tag-size-5 {
+  font-size: 50px;
+  color: purple;
+
 }
