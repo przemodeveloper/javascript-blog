@@ -1,5 +1,16 @@
-## Description
-This is a simple website that presents blog entries. Frontend was created in Vanilla JavaScript.
+## Title
+JavaScript Blog
 
-## Running
-To run an app, in the project directory, type in the console 'npm run watch'.
+## Description
+This is a simple website that presents blog entries.
+
+## Project status
+Completed
+
+## Technology
+JavaScript
+
+## Launch
+1. clone repository
+2. npm install
+3. npm run watch
